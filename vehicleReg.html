@@ -1,0 +1,327 @@
+<!doctype html>
+<!-- 
+Create a “Vehicle Registration” form that checks the following and presents errors when the submit button is pressed.
+
+Owner First Name - Field is not empty, not over 20 characters in length and no special characters.
+Owner Last Name - Field is not empty, not over 20 characters in length and no special characters.
+Car Make  - Field not empty, no special characters, no numbers
+Car Model - Field not empty, no special characters
+Car Year - Field not empty, no letters, no special characters, must have 4 digits
+Vin Number -	 All capital letters, includes numbers, cannot contain the letter “O” and no special characters. 
+Memo - Anything can go here.
+-->
+<html>
+<head>
+<meta charset="utf-8">
+<title>Vehicle Registration</title>
+	
+<style>
+		
+		/*Navigation Style*/
+		.wrapper{
+		  text-align:center;
+		  margin: 0px 70px 70px 70px;
+			position: relative;
+		}
+
+		.tabs {
+		  margin-top:50px;
+		  font-size:15px;
+		  padding:0px;
+		  list-style:none;
+		  background:#fff;
+		  box-shadow:0px 5px 20px rgba(0,0,0,0.1);
+		  display:inline-block;
+		  border-radius:50px;
+		  position:relative;
+		}
+
+		.tabs a {
+		  text-decoration:none;
+		  color: #000;
+		  text-transform:uppercase;
+		  padding:10px 20px;
+		  display:inline-block;
+		  position:relative;
+		  
+		}
+		
+		a:hover{
+			color: #C520C9;
+		}
+
+		a:active {
+		  color: #C520C9;
+		}
+
+		/*Table style*/
+		.table-wrapper{
+			margin: 70px 70px 70px;
+			box-shadow: 0px 35px 50px rgba(190, 102, 180, 1);
+			width: 380px;
+		}
+		.f1-table{
+			padding-left: 5px;
+		}
+		
+		.fl-table td, .fl-table th {
+			text-align: center;
+			padding: 8px;
+		}
+		.f1-table thead th {
+			padding: 6px 0 6px 0px;
+			font-size: 1.3em;
+			text-decoration: underline;		
+		}
+		/*---------------------------------------------*/
+		/*Warnings style*/
+		.warning{
+			width: auto;
+			float: left;
+			border: 0px;
+			border-style: solid;
+			height: auto;
+			display: none;
+			color: red;
+		}
+		
+	</style>
+	
+	
+</head>
+<body>
+
+	<!-- -------------------------------------------------------------------- -->
+	
+	<script>
+		
+		function validateFormOnSubmit(theForm){
+			
+			var reason = "";
+			
+			reason += validateFirstName(theForm.firstname);
+			reason += validateLastName(theForm.lastname);
+			reason += validateCarMake(theForm.carmake);
+			reason += validateCarModel(theForm.carmodel);
+			reason += validateCarYear(theForm.caryear);
+			reason += validateVinNumber(theForm.vinnumber);
+			
+			
+			if(reason != ""){
+				alert("Some fields need correction.\n" + reason);
+				return false;
+			}
+			
+			return true;
+		}
+		
+		//--------------------------------------------------------
+		
+		function validateFirstName(fld){
+			
+			var error = "";
+			
+			var illegalChars = /[\W_]/; //allow only numbers and letters
+			console.log(fld.value);
+			if(fld.value == ""){
+				fld.style.background = 'Yellow';
+				error = "Your first name is missing.\n";
+			} else if ((fld.value.length < 1) || (fld.value.length > 20)){
+				error = "Your first name is either to long or to short.\n";
+				fld.style.background = 'Yellow';
+			} else if (illegalChars.test(fld.value)){
+				error = "Your name contains illegal characters.\n";
+				fld.style.background = 'Yellow';
+			} else {
+				fld.style.background = 'White';
+			}
+			
+			return error;
+			
+		}
+		
+		//--------------------------------------------------------
+		
+		function validateLastName(fld){
+			
+			var error = "";
+			
+			var illegalChars = /[\W_]/; //allow only numbers and letters
+			
+			if(fld.value == ""){
+				fld.style.background = 'Yellow';
+				error = "Your last name is missing.\n";
+			} else if ((fld.value.length < 1) || (fld.value.length > 20)){
+				error = "Your last name is either to long or to short.\n";
+				fld.style.background = 'Yellow';
+			} else if (illegalChars.test(fld.value)){
+				error = "Your name contains illegal characters.\n";
+				fld.style.background = 'Yellow';
+			} else {
+				fld.style.background = 'White';
+			}
+			return error;
+		}
+		
+		//--------------------------------------------------------
+		
+		function validateCarMake(fld){
+			
+			var error = "";
+			
+			var illegalChars = /([A-z])\w+/; //no special characters, no numbers
+			
+			if(fld.value == ""){
+				fld.style.background = 'Yellow';
+				error = "The car make is missing.\n";
+			} else if (!(illegalChars.test(fld.value))){
+				error = "The car make contains illegal characters.\n";
+				fld.style.background = 'Yellow';
+			} else {
+				fld.style.background = 'White';
+			}
+			return error;
+		}
+		
+		//--------------------------------------------------------
+		
+		function validateCarModel(fld){
+			
+			var error = "";
+			
+			var illegalChars = /\W/; //Field not empty, no special characters
+			
+			if(fld.value == ""){
+				fld.style.background = 'Yellow';
+				error = "The car make is missing.\n";
+			} else if (illegalChars.test(fld.value)){
+				error = "The car make contains illegal characters.\n";
+				fld.style.background = 'Yellow';
+			} else {
+				fld.style.background = 'White';
+			}
+			return error;
+		}
+		
+		
+		//--------------------------------------------------------
+		
+		function validateCarYear(fld){
+			
+			var error = "";
+			
+			var illegalChars = /[0-9]{4}/; //no letters, or characters, must have 4 digits
+			
+			if(fld.value == ""){
+				fld.style.background = 'Yellow';
+				error = "The car year is missing.\n";
+			} else if (!(illegalChars.test(fld.value))){
+				error = "The car year contains illegal characters.\n";
+				fld.style.background = 'Yellow';
+			} else if (!(fld.value.length == 4)){
+				error = "The year must be 4 digits.\n";
+				fld.style.background = 'Yellow';
+			} else {
+				fld.style.background = 'White';
+			}
+			return error;
+		}
+		
+		//--------------------------------------------------------
+		
+		function validateVinNumber(fld){
+			
+			var error = "";
+			//All capital letters, includes numbers, cannot contain the letter “O” and no special characters. 
+			var illegalChars = /[(A-N)(P-Z)(0-9)]/;
+			
+			if(fld.value == ""){
+				fld.style.background = 'Yellow';
+				error = "The vin number is missing.\n";
+			} else if (!(illegalChars.test(fld.value))){
+				error = "The vin number contains illegal characters.\n";
+				fld.style.background = 'Yellow';
+			} else {
+				fld.style.background = 'White';
+			}	
+			return error;
+		}
+		
+	</script>
+	
+	<!-- ------------------------------------------------------------------->
+	
+	<div class="wrapper">
+		<nav class="tabs">
+			<a class="current" href="formValidationAssign.html">Home</a>
+				<a class="current" href="vehicleReg.html">Vehicle</a>
+				<a class="current" href="formItemEntry.html">Items</a>
+			
+		</nav>
+  	</div>
+	
+	<!-- ----------------------------------------------------------------- -->
+
+	<div class="table-wrapper">
+	<form name="vehicleRegistration" 
+		  onsubmit="return validateFormOnSubmit(this)" 
+		  action="test.html">
+		
+		<table summary="registration form" class="f1-table">
+			<thead>
+				<tr>
+					<th colspan="2">Vehicle Registration</th>				
+				</tr>
+			</thead>	
+			<tbody>
+				
+				<tr>					
+					<td><label for="firstname">First Name: </label></td>
+					<td><input name="firstname" size="35" maxlength="30" type="text"></td>	
+				</tr>
+				
+				<tr>					
+					<td><label for="lastname">Last Name: </label></td>
+					<td><input name="lastname" size="35" maxlength="20" type="text"></td>	
+				</tr>
+				
+				<tr>					
+					<td><label for="carmake">Car Make: </label></td>
+					<td><input name="carmake" size="35" maxlength="35" type="text"></td>	
+				</tr>
+				
+				<tr>					
+					<td><label for="carmodel">Car Model: </label></td>
+					<td><input name="carmodel" size="35" maxlength="35" type="text"></td>	
+				</tr>
+				
+				<tr>					
+					<td><label for="caryear">Car Year: </label></td>
+					<td><input name="caryear" size="35" maxlength="4" type="text"></td>	
+				</tr>
+				
+				<tr>					
+					<td><label for="vinnumber">Vin Number: </label></td>
+					<td><input name="vinnumber" size="35" maxlength="35" type="text"></td>	
+				</tr>
+				
+				<tr>					
+					<td><label for="memo">Memo: </label></td>
+					<td><input name="memo" size="35" maxlength="35" type="text"></td>	
+				</tr>
+				
+				<tr>
+					<td>&nbsp;</td>
+					<td><input name="Submit" value="Submit" type="submit"></td>
+				</tr>
+			
+			</tbody>
+		
+		</table>
+	
+	</form>
+	
+	<!-- -------------------------------------------------------------- -->
+	</div>
+</body>
+</html>
